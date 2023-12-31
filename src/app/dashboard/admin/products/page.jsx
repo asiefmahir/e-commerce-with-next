@@ -1,7 +1,7 @@
 // import Image from 'next/image'
 import connectDb from "@/utils/connectDb";
 
-import GridLayout from "@/components/home/GridLayout";
+import ProductList from "@/components/admin/ProductList";
 import Pagination from "@/components/product/Pagination";
 
 const getProducts = async (searchParams) => {
@@ -18,7 +18,7 @@ const getProducts = async (searchParams) => {
 	const data = await res.json();
 	return data;
 };
-export default async function Home({ searchParams }) {
+export default async function AdminProductList({ searchParams }) {
 	console.log(searchParams);
 	await connectDb();
 	const { products, currentPage, totalPages } = await getProducts(
@@ -27,23 +27,14 @@ export default async function Home({ searchParams }) {
 	return (
 		<main>
 			<div>
-				<div className="page-banner">
-					<div className="page-banner__details">
-						<div className="page-banner__details__title">
-							<h1>Our E-commerce Website</h1>
-						</div>
+				<div className="product-section">
+					<div className="product-section__heading">
+						<h4>Product list in your app</h4>
 					</div>
-				</div>
-				<div className="section">
-					<div className="container">
-						<div className="section__head">
-							<div className="product__details__title">
-								<h2>Filtered Products</h2>
-							</div>
-						</div>
-						<div className="section__content">
-							<GridLayout products={products} />
-						</div>
+					<div className="product-table-container">
+						<table>
+							<ProductList products={products} />
+						</table>
 					</div>
 				</div>
 			</div>
@@ -55,3 +46,23 @@ export default async function Home({ searchParams }) {
 		</main>
 	);
 }
+
+// import ProductList from "@/components/admin/ProductList";
+
+// const AllProducts = async () => {
+// 	return (
+// 		<div className="product-section">
+// 			<div className="product-section__heading">
+// 				<h4>Product list in your app</h4>
+// 			</div>
+
+// 			<div className="product-table-container">
+// 				<table>
+// 					<ProductList />
+// 				</table>
+// 			</div>
+// 		</div>
+// 	);
+// };
+
+// export default AllProducts;
